@@ -5,12 +5,7 @@ import { Footer } from "./MyComponents/Footer";
 import { AddTodo } from "./MyComponents/AddTodo";
 import { About } from "./MyComponents/About";
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   let initTodo;
   if (localStorage.getItem("todos") === null) {
@@ -59,25 +54,26 @@ function App() {
 
   return ( 
     <> 
-    <Router>
-      <Header title="My Todos List" searchBar={false} /> 
-      <Switch>
-          <Route exact path="/" render={()=>{
-            return(
+      <Router>
+        <Header /> 
+        <Routes>
+          {/* Use the element prop instead of render */}
+          <Route path="/" element={
             <>
-            <AddTodo addTodo={addTodo} />
-            <Todos todos={todos} onDelete={onDelete} /> 
-            </>)
-          }}> 
-          </Route>
-          <Route exact path="/about">
-            <About />
-          </Route> 
-        </Switch> 
-      <Footer />
-    </Router>
+              <AddTodo addTodo={addTodo} />
+              <Todos todos={todos} onDelete={onDelete} /> 
+            </>
+          } /> 
+  
+          {/* Use element for the About component */}
+          <Route path="/about" element={<About />} />
+  
+        </Routes> 
+        <Footer />
+      </Router>
     </>
   );
+  
 }
 
 export default App;

@@ -1,12 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-export default function Header(props) {
+// Destructure the props and set default values directly in the parameters
+export default function Header({ title = "My Todos List", searchBar = false }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">{props.title}</Link>
+          <Link className="navbar-brand" to="/">{title}</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -19,21 +20,19 @@ export default function Header(props) {
                 <Link className="nav-link" to="/about">About</Link>
               </li>  
             </ul>
-            { props.searchBar? <form className="d-flex">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>: ""}
+            {searchBar ? (
+              <form className="d-flex">
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            ) : ""}
           </div>
         </div>
       </nav>
-    )
+    );
 }
-Header.defaultProps = {
-  title: "Your Title Here",
-  searchBar: true
-}
-
+// You can still define PropTypes if necessary
 Header.propTypes = {
   title: PropTypes.string,
-  searchBar: PropTypes.bool.isRequired
-}
+  searchBar: PropTypes.bool
+};
